@@ -18,19 +18,47 @@ Flake-based NixOS or Home Manager config:
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  # then either the overlay ...
-  nixpkgs.overlays = [ inputs.scrim-nix.overlays.default ];
-  home.packages = [ pkgs.scrim ];
+  # Home Manager module  
+  # (with standalone Home Manager, add the module to `modules` or `imports`)
+  home-manager.sharedModules = [ inputs.scrim-nix.homeManagerModules.default ];
+  programs.scrim.enable = true;
+
+  # Add agent skill
+  # programs.scrim.skill.dirs = [ ".claude/skills" ".agents/skills" ];
+  # programs.scrim.skill.enable = false; # binary only
+
+  # ... or only the package, via the overlay
+  # nixpkgs.overlays = [ inputs.scrim-nix.overlays.default ];
+  # home.packages = [ pkgs.scrim ];
 
   # ... or the package directly
-  home.packages = [ inputs.scrim-nix.packages.${pkgs.stdenv.hostPlatform.system}.scrim ];
+  # home.packages = [ inputs.scrim-nix.packages.${pkgs.stdenv.hostPlatform.system}.#scrim ];
 }
 ```
+
 **Try it without installing:**
 
 ```sh
 nix run github:snlr308/scrim-nix -- fetch https://example.com
 ```
+
+## How to use
+
+### CLI
+
+See [scrim](https://github.com/strelov1/scrim)
+
+### Agent skill
+
+- Agents load the skill when needed
+- Or prompt: `/scrim URL something`
+- Agents without skill support: Add a line in `AGENTS.md` or equivalent,
+naming scrim and its purpose: *"For web pages, use the `scrim` CLI
+(`scrim --help`)*
+
+[`skills/scrim/SKILL.md`](skills/scrim/SKILL.md) covers when to prefer scrim,
+the session workflow, and minor details. See ([agentskills.io/clients](https://agentskills.io/clients)) for the exact path per agent. Common paths are `~/.claude/skills` and `~/.agents/skills`. **With the Home Manager module** the skill is linked into every directory in `programs.scrim.skill.dirs` (default `[ ".claude/skills" ]`), and is removed when the package is removed.
+
 
 ## How it is built
 
@@ -48,6 +76,8 @@ nix run github:snlr308/scrim-nix -- fetch https://example.com
 2. If upstream's `v8 = "=X.Y.Z"` pin moved, update `rustyV8Version` and its
    hash: `nix store prefetch-file <url printed by the build>`.
 3. Set `cargoHash = lib.fakeHash;`, run `nix build`, paste the hash it reports.
+4. Re-check the "Exit codes and `eval`" section of `skills/scrim/SKILL.md`
+   against the new binary and update its "Checked against" version.
 
 ## License
 
