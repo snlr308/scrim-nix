@@ -1,22 +1,15 @@
 # scrim-nix
 
 Nix flake packaging [scrim](https://github.com/strelov1/scrim), a minimal
-headless browser for AI agents. Upstream ships a prebuilt binary for macOS on
-Apple Silicon only; this flake builds it from source for NixOS.
+headless browser for AI agents.
 
 - Upstream version: 0.1.0 (tag `v0.1.0`)
-- Platforms: `x86_64-linux` (built and smoke-tested). Other platforms need a
-  `librusty_v8` hash in `package.nix`.
+- Platforms: `x86_64-linux` (built and smoke-tested)
+- Other platforms need a `librusty_v8` hash in `package.nix`
 
-## Use
+## Install
 
-Try it without installing:
-
-```sh
-nix run github:snlr308/scrim-nix -- fetch https://example.com
-```
-
-In a flake-based NixOS or Home Manager config:
+Flake-based NixOS or Home Manager config:
 
 ```nix
 {
@@ -33,17 +26,18 @@ In a flake-based NixOS or Home Manager config:
   home.packages = [ inputs.scrim-nix.packages.${pkgs.stdenv.hostPlatform.system}.scrim ];
 }
 ```
+**Try it without installing:**
 
-There is no binary cache: the first build compiles from source (about 10
-minutes, upstream uses fat LTO).
+```sh
+nix run github:snlr308/scrim-nix -- fetch https://example.com
+```
 
 ## How it is built
 
-- `rustPlatform.buildRustPackage` with `cargoHash` (not `cargoLock`: upstream's
-  `Cargo.lock` lists `debug_timer 0.1.3` from both crates.io and a git source).
+- `rustPlatform.buildRustPackage` with `cargoHash` (not `cargoLock`).
 - The v8 crate normally downloads a prebuilt `librusty_v8.a` at build time. The
   Nix sandbox has no network, so the archive is fetched with `fetchurl` and
-  passed via `RUSTY_V8_ARCHIVE`, which the crate supports.
+  passed via `RUSTY_V8_ARCHIVE`.
 - The install check runs upstream's CI smoke test against a local HTTP server:
   visible text is read, page JavaScript runs, hidden content stays hidden.
 
@@ -57,4 +51,5 @@ minutes, upstream uses fat LTO).
 
 ## License
 
-The packaging in this repo is MIT. scrim itself is MIT, by Ilya Strelov.
+- scrim-nix is MIT
+- [scrim](https://github.com/strelov1/scrim) is MIT
