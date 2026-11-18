@@ -1,0 +1,45 @@
+{
+  "nodes": {
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1794750194,
+        "narHash": "sha256-c6ZxSsG1c2luSrbESFfp9Jq2pSVhGst2to4aIzt2Nes=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "1a08097fc1ed85575db39763b2c4a5d8970a37ba",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "nixpkgs": "nixpkgs",
+        "scrim-src": "scrim-src"
+      }
+    },
+    "scrim-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794697710,
+        "narHash": "sha256-HJVcW9feoyEokgbXXiNxEUw/hzw8/Tj3AGZ6TnX9Nhw=",
+        "owner": "strelov1",
+        "repo": "scrim",
+        "rev": "2b62f81d7ab49612ed13757f2399622c6348a047",
+        "type": "github"
+      },
+      "original": {
+        "owner": "strelov1",
+        "ref": "v0.1.0",
+        "repo": "scrim",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
