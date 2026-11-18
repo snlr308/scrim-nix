@@ -52,13 +52,9 @@ See [scrim](https://github.com/strelov1/scrim)
 
 - Agents load the skill when needed
 - Or prompt: `/scrim URL something`
-- Agents without skill support: Add a line in `AGENTS.md` or equivalent,
-naming scrim and its purpose: *"For web pages, use the `scrim` CLI
-(`scrim --help`)*
 
-[`skills/scrim/SKILL.md`](skills/scrim/SKILL.md) covers when to prefer scrim,
-the session workflow, and minor details. See ([agentskills.io/clients](https://agentskills.io/clients)) for the exact path per agent. Common paths are `~/.claude/skills` and `~/.agents/skills`. **With the Home Manager module** the skill is linked into every directory in `programs.scrim.skill.dirs` (default `[ ".claude/skills" ]`), and is removed when the package is removed.
-
+File [`skills/scrim/SKILL.md`](skills/scrim/SKILL.md) covers when to prefer scrim,
+the session workflow, and minor details. See [agentskills.io/clients](https://agentskills.io/clients) for the exact path per agent. Common paths are *~/.claude/skills* and *~/.agents/skills*. With the Home Manager module the skill is linked into every directory in `programs.scrim.skill.dirs`, default `[".claude/skills"]`, and is removed when the package is removed. Agents without skill support: add a line in `AGENTS.md` or equivalent, naming scrim and its purpose: *"For web pages, use the `scrim` CLI (see `scrim --help`).*
 
 ## How it is built
 
