@@ -1,6 +1,6 @@
 ---
 name: scrim
-description: Headless browser CLI (`scrim`) for reading and driving web pages from the shell. Use when a page needs its full text, markdown or accessibility tree rather than a summary, when content is rendered by JavaScript, when a task clicks, fills forms or navigates across pages, or when a page screenshot is needed.
+description: Headless browser CLI (`scrim`) for reading and driving web pages from the shell. Use when a page needs its full text, markdown or accessibility tree rather than a summary, when content is rendered by JavaScript, when a task clicks, fills forms or navigates across pages, when a page screenshot is needed, or when a decision depends on what an authoritative page does not say.
 ---
 
 # scrim
@@ -16,6 +16,10 @@ once per session before the first call.
 - **Several steps on a site** (click, fill, paginate): a session.
 - **Visual check:** `scrim fetch <url> --screenshot out.png [--full-page]`.
   Glyph coverage depends on the system fonts.
+- **Verifying an absence** (a summary said the page does not cover X, and a
+  decision rests on that): `scrim fetch <url> --dump markdown`, read the
+  sections around X, and report what the page states explicitly apart from
+  what you infer from it.
 
 Reach for other tools when the site runs bot detection (scrim has no stealth
 features) or when the task is debugging a real Chrome profile (Chrome
