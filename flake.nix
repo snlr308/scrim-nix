@@ -35,6 +35,9 @@
 
       overlays.default = final: _prev: { scrim = scrimFor final; };
 
+      # programs.scrim.enable – package plus Claude Code skill
+      homeManagerModules.default = import ./hm-module.nix self;
+
       formatter = forAllSystems (pkgs: pkgs.nixfmt);
     };
 }
